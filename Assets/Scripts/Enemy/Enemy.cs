@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour, IComponentHandler<Player>
     [SerializeField] private TextMeshPro m_TextViewHealth;
 
     [SerializeField] private int m_Health = 1;
+    [SerializeField] private int m_ToTargetDistance = 2;
     [SerializeField] private float m_MoveSpeed = 2;
 
 
@@ -30,6 +31,7 @@ public class Enemy : MonoBehaviour, IComponentHandler<Player>
 
     public void OnFixedUpdate()
     {
+        if (Vector2.Distance(m_Body.position, m_Player.position) > m_ToTargetDistance) return;
         if (m_Player.state == RebuildStates.Deer)
         {
             m_Body.position += (m_Player.position - m_Body.position).normalized * m_MoveSpeed * Time.fixedDeltaTime;

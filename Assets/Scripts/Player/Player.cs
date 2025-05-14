@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
 
     public Vector2 position => transform.position;
 
+    public Deer deer => m_Deer;
+
     private void Start()
     {
         RebuildInDeer();

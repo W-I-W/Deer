@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 3521795757458407075}
   - component: {fileID: 8280033114920373698}
   m_Layer: 0
-  m_Name: DamageViewYellow
+  m_Name: DamageViewGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

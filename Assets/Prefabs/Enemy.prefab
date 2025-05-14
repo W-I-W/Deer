@@ -192,6 +192,7 @@ MonoBehaviour:
   m_ViewDamagePrefab: {fileID: 3521795757458407075, guid: 4ad91db999dbf7f468be9fcd9eee034a, type: 3}
   m_TextViewHealth: {fileID: 7989648077587530933}
   m_Health: 2
+  m_ToTargetDistance: 10
   m_MoveSpeed: 3.6
 --- !u!58 &2845387448769670782
 CircleCollider2D:

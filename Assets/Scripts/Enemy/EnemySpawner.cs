@@ -43,7 +43,6 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-
     private IEnumerator OnGenerator()
     {
         while (true)
@@ -74,5 +73,13 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+
+    public void CreateEnemy(Vector2 position)
+    {
+        Enemy enemy = Instantiate(m_Prefab, position, Quaternion.identity, m_Parent);
+        enemy.SetComponent(m_Player);
+        m_Enemys.Add(enemy);
+        enemy.gameObject.SetActive(true);
+    }
     public void OnDebug(string text) => Debug.Log(text);
 }

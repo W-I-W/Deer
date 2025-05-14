@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Net.NetworkInformation;
 
 using UnityEngine;
@@ -7,6 +8,8 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private int m_HealthMax = 100;
     [SerializeField] private int m_HealthMin = 0;
+    [SerializeField] private int m_HungerDelay = 1;
+    [SerializeField] private int m_HungerDamage = 1;
     [SerializeField] private UnityEvent m_OnMin;
 
     private int m_Health;
@@ -19,6 +22,16 @@ public class Health : MonoBehaviour
     {
         m_Health = m_HealthMax;
         onValue?.Invoke(m_Health);
+        StartCoroutine(OnHunger());
+    }
+
+    private IEnumerator OnHunger()
+    {
+        while (true)
+        {
+            TakeDamage(m_HungerDamage);
+            yield return new WaitForSeconds(m_HungerDelay);
+        }
     }
 
     public void TakeDamage(int damage)
