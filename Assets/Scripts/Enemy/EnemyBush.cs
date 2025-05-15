@@ -10,7 +10,7 @@ public class EnemyBush : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         int change = Random.Range(0, 100);
-        if (change > m_Change) return;
+        if (change >= m_Change) return;
 
         bool isPlayer = collision.TryGetComponent(out Player player);
 
