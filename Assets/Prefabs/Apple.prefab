@@ -167,4 +167,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Body: {fileID: 8775969431113945161}
   m_IsAnimationImpulse: 400
-  m_Eat: 25
+  m_Eat: 6

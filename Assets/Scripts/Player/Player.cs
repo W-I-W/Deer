@@ -12,9 +12,16 @@ public class Player : MonoBehaviour
 
 
     private float m_Horizontal = 0;
-    private float m_Vertivcal = 0;
+    private float m_Vertical = 0;
+    private float m_Acceleration = 2;
 
     private RebuildStates m_State;
+
+    public float horizontal => m_Horizontal;
+
+    public float vertical => m_Vertical;
+
+    public Vector2Int lastPress { private set; get; } = Vector2Int.zero;
 
     public RebuildStates state => m_State;
 
@@ -31,11 +38,20 @@ public class Player : MonoBehaviour
     {
         float time = Time.fixedDeltaTime;
 
-        m_Horizontal = Input.GetAxis("Horizontal");
+        m_Acceleration = Input.GetKeyUp(KeyCode.Space) ? 2 : 1;
 
-        m_Vertivcal = Input.GetAxis("Vertical");
+        m_Horizontal = Input.GetAxis("Horizontal") / m_Acceleration;
 
-        m_Body.position += new Vector2(m_Horizontal, m_Vertivcal) * time * m_Speed;
+        m_Vertical = Input.GetAxis("Vertical") / m_Acceleration;
+
+        m_Body.position += new Vector2(m_Horizontal, m_Vertical) * time * m_Speed;
+
+        if (m_Horizontal == 0 && m_Vertical == 0) return;
+
+        bool isHorZero = Mathf.Approximately(m_Horizontal, 0);
+        bool isVerZero = Mathf.Approximately(m_Horizontal, 0);
+        Debug.Log(isHorZero);
+        lastPress = new Vector2Int();
     }
 
     public void RebuildInWolf()
