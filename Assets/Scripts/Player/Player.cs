@@ -51,18 +51,14 @@ public class Player : MonoBehaviour
         m_Vertical = Input.GetAxis("Vertical") / m_Acceleration;
 
         m_Body.position += new Vector2(m_Horizontal, m_Vertical) * time * m_Speed;
-        isIdle = m_Horizontal == 0 && m_Vertical == 0;
         //Debug.Log("h:" + m_Horizontal + " v:" + m_Vertical + " Idle:" + isIdle);
+        isIdle = Mathf.Approximately(m_Horizontal, 0) && Mathf.Approximately(m_Vertical, 0);
         if (isIdle) return;
 
         bool isHorZero = Mathf.Approximately(m_Horizontal, 0);
-        //bool isVerZero = Mathf.Approximately(m_Vertical, 0);
         int v = isHorZero ? (int)Mathf.Sign(m_Vertical) : 0;
         int h = isHorZero ? 0 : (int)Mathf.Sign(m_Horizontal);
-        //m_Horizontal = isHorZero ? m_Horizontal : 0;
         lastPress = new Vector2Int(h, v);
-        //Debug.Log("h:" + m_Horizontal + " v:" + m_Vertical + " Idle:" + isIdle);
-        Debug.Log(lastPress);
     }
 
     public void RebuildInWolf()
