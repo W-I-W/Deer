@@ -12,16 +12,18 @@ public class Health : MonoBehaviour
     [SerializeField] private int m_HungerDamage = 1;
     [SerializeField] private UnityEvent m_OnMin;
 
-    private int m_Health;
+    private int m_Value;
 
     public UnityAction<int> onValue { get; set; }
 
     public int max => m_HealthMax;
 
+    public int value => m_Value;
+
     private void Start()
     {
-        m_Health = m_HealthMax;
-        onValue?.Invoke(m_Health);
+        m_Value = m_HealthMax;
+        onValue?.Invoke(m_Value);
         StartCoroutine(OnHunger());
     }
 
@@ -36,10 +38,10 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        m_Health -= damage;
-        m_Health = Mathf.Clamp(m_Health, m_HealthMin, m_Health);
-        onValue?.Invoke(m_Health);
-        if (m_Health <= m_HealthMin)
+        m_Value -= damage;
+        m_Value = Mathf.Clamp(m_Value, m_HealthMin, m_Value);
+        onValue?.Invoke(m_Value);
+        if (m_Value <= m_HealthMin)
         {
             m_OnMin?.Invoke();
         }
@@ -47,7 +49,7 @@ public class Health : MonoBehaviour
 
     public void Add(int value)
     {
-        m_Health = Mathf.Clamp(m_Health + value, m_HealthMin, m_HealthMax);
-        onValue?.Invoke(m_Health);
+        m_Value = Mathf.Clamp(m_Value + value, m_HealthMin, m_HealthMax);
+        onValue?.Invoke(m_Value);
     }
 }

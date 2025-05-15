@@ -10,7 +10,7 @@ public class Deer : MonoBehaviour
     [SerializeField] private DamageNumber m_ViewDamage;
     [SerializeField] private DamageNumber m_ViewAdd;
 
-
+    public int getHealth => m_Health.value;
 
     public void TakeDamage(int damage)
     {

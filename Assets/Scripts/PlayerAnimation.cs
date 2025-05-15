@@ -7,8 +7,13 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Update()
     {
-        m_Animator.SetFloat("x", m_Player.horizontal);
-        m_Animator.SetFloat("y", m_Player.vertical);
-
+        if (m_Player.isIdle)
+        {
+            m_Animator.SetFloat("XIdle", m_Player.lastPress.x);
+            m_Animator.SetFloat("YIdle", m_Player.lastPress.y);
+            return;
+        }
+        m_Animator.SetFloat("X", m_Player.horizontal);
+        m_Animator.SetFloat("Y", m_Player.vertical);
     }
 }
