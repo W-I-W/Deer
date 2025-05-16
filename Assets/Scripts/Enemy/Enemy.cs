@@ -4,15 +4,14 @@ using DamageNumbersPro;
 using TMPro;
 
 using UnityEngine;
-using UnityEngine.UIElements;
 
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class Enemy : MonoBehaviour, IComponentHandler<Player>, ICharacterAnimation
 {
     [SerializeField] private Rigidbody2D m_Body;
     [SerializeField] private DamageNumber m_ViewDamagePrefab;
     [SerializeField] private TextMeshPro m_TextViewHealth;
+    [SerializeField] private Transform m_Spear;
 
     [SerializeField] private int m_Health = 1;
     [SerializeField] private int m_ToTargetDistance = 2;
@@ -30,7 +29,6 @@ public class Enemy : MonoBehaviour, IComponentHandler<Player>, ICharacterAnimati
 
     public Vector2Int lastPress { get; set; } = Vector2Int.zero;
 
-    public float rotationTarget { get; set; } = 0;
 
 
     private void Start()
@@ -45,16 +43,18 @@ public class Enemy : MonoBehaviour, IComponentHandler<Player>, ICharacterAnimati
 
     public void OnFixedUpdate()
     {
-        rotationTarget = (m_Player.position - m_Body.position).normalized;
+
         if (Vector2.Distance(m_Body.position, m_Player.position) > m_ToTargetDistance) return;
         if (m_Player.state == RebuildStates.Deer)
         {
+            SpearRotation(m_Player.position - m_Body.position);
             m_Body.position += (m_Player.position - m_Body.position).normalized * m_MoveSpeed * Time.fixedDeltaTime;
             Logic((m_Player.position - m_Body.position).normalized);
             return;
         }
         m_Body.position += (m_Body.position - m_Player.position).normalized * m_MoveSpeed * Time.fixedDeltaTime;
         Logic((m_Body.position - m_Player.position).normalized);
+        SpearRotation(m_Body.position - m_Player.position);
 
 
     }
@@ -84,6 +84,13 @@ public class Enemy : MonoBehaviour, IComponentHandler<Player>, ICharacterAnimati
         int v = isHorZero ? (int)Mathf.Sign(vertical) : 0;
         int h = isHorZero ? 0 : (int)Mathf.Sign(horizontal);
         lastPress = new Vector2Int(h, v);
+    }
+
+    public void SpearRotation(Vector2 value)
+    {
+        Vector2 direciton = value;
+        var rotationTarget = Mathf.Atan2(direciton.y, direciton.x) * Mathf.Rad2Deg;
+        m_Spear.rotation = Quaternion.Euler(new Vector3(0, 0, rotationTarget));
     }
 }
 
