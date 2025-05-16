@@ -28,10 +28,12 @@ public class Bush : MonoBehaviour
                 i--;
             }
         }
+
         int rand = Random.Range(0, 100);
         if (m_Eats.Count < m_MaxEats && chance + m_Chance >= rand)
         {
             m_Chance = 0;
+            rand = Random.Range(0, 100);
             Eat eat;
             if (rand <= chanceGold)
                 eat = Instantiate(m_EatGoldPrefab, transform.position, Quaternion.identity, transform);

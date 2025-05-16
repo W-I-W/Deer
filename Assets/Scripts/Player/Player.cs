@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ICharacterAnimation
 {
     [SerializeField] private Rigidbody2D m_Body;
 
@@ -19,8 +19,7 @@ public class Player : MonoBehaviour
     private RebuildStates m_State;
 
 
-
-    public Vector2Int lastPress { private set; get; } = Vector2Int.zero;
+    public Vector2Int lastPress { get; set; } = Vector2Int.zero;
 
     public RebuildStates state => m_State;
 
