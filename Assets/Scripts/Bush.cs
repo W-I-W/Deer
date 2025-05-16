@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -6,6 +5,7 @@ using UnityEngine;
 public class Bush : MonoBehaviour
 {
     [SerializeField] private Eat m_EatPrefab;
+    [SerializeField] private Eat m_EatGoldPrefab;
     [SerializeField] private int m_MaxEats = 2;
 
     private List<Eat> m_Eats;
@@ -18,7 +18,7 @@ public class Bush : MonoBehaviour
 
     }
 
-    public void OnCreateFood(int chance, int auto)
+    public void OnCreateFood(int chance, int auto, int chanceGold)
     {
         for (int i = 0; i < m_Eats.Count; i++)
         {
@@ -32,7 +32,11 @@ public class Bush : MonoBehaviour
         if (m_Eats.Count < m_MaxEats && chance + m_Chance >= rand)
         {
             m_Chance = 0;
-            Eat eat = Instantiate(m_EatPrefab, transform.position, Quaternion.identity, transform);
+            Eat eat;
+            if (rand <= chanceGold)
+                eat = Instantiate(m_EatGoldPrefab, transform.position, Quaternion.identity, transform);
+            else
+                eat = Instantiate(m_EatPrefab, transform.position, Quaternion.identity, transform);
             m_Eats.Add(eat);
         }
         m_Chance += auto;
