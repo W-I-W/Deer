@@ -7,14 +7,14 @@ public class Player : MonoBehaviour, ICharacterAnimation
 
     [SerializeField] private Deer m_Deer;
     [SerializeField] private GameObject m_Wolf;
-
-    [SerializeField] private float m_Speed = 1;
+    
     [SerializeField] private int m_Weakness = 20;
-
+    [SerializeField] private float _walkSpeed = 2;
+    [SerializeField] private float _runSpeed = 4;
 
     private float m_Horizontal = 0;
     private float m_Vertical = 0;
-    private float m_Acceleration = 2;
+    private float m_Acceleration = 0.1f;
 
     private RebuildStates m_State;
 
@@ -43,13 +43,16 @@ public class Player : MonoBehaviour, ICharacterAnimation
         if (m_Deer.getHealth <= 0) return;
         float time = Time.fixedDeltaTime;
 
-        m_Acceleration = Input.GetKey(KeyCode.LeftShift) ? 1 : 2;
-        m_Acceleration = m_Deer.getHealth > m_Weakness ? m_Acceleration : 2;
+        //m_Acceleration = Input.GetKey(KeyCode.LeftShift) ? 1 : 2;
+        //m_Acceleration = m_Deer.getHealth > m_Weakness ? m_Acceleration : 2;
         m_Horizontal = Input.GetAxis("Horizontal") / m_Acceleration;
-
         m_Vertical = Input.GetAxis("Vertical") / m_Acceleration;
-
-        m_Body.position += new Vector2(m_Horizontal, m_Vertical) * time * m_Speed;
+        
+        var _speed = Input.GetKey(KeyCode.LeftShift) ?  _runSpeed: _walkSpeed;
+        if (m_Deer.getHealth < m_Weakness)
+            _speed = _walkSpeed;
+        
+        m_Body.position += new Vector2(m_Horizontal, m_Vertical).normalized * (_speed * time);
         //Debug.Log("h:" + m_Horizontal + " v:" + m_Vertical + " Idle:" + isIdle);
         isIdle = Mathf.Approximately(m_Horizontal, 0) && Mathf.Approximately(m_Vertical, 0);
         if (isIdle) return;
