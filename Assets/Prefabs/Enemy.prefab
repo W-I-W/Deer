@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Spear: {fileID: 9100795703003298045}
   m_Health: 2
   m_ToTargetDistance: 10
-  m_MoveSpeed: 1
+  m_MoveSpeed: 1.75
 --- !u!114 &221600669655121064
 MonoBehaviour:
   m_ObjectHideFlags: 0
