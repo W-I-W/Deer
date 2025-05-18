@@ -12,6 +12,12 @@ public class LightCycle : MonoBehaviour
     [SerializeField] private float _intensityForDay = 0.8f;
     [SerializeField] private float _intensityForNight = 0.2f;
 
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     public IEnumerator OnDay()
     {
         yield return new WaitForSeconds(_delayForHalf);
@@ -34,12 +40,14 @@ public class LightCycle : MonoBehaviour
     public void StartDay()
     {
         StopAllCoroutines();
-        StartCoroutine(OnNight());
+        if (transform.parent.gameObject.activeSelf)
+            StartCoroutine(OnNight());
 
     }
     public void StartNight()
     {
         StopAllCoroutines();
-        StartCoroutine(OnDay());
+        if (transform.parent.gameObject.activeSelf)
+            StartCoroutine(OnDay());
     }
 }
