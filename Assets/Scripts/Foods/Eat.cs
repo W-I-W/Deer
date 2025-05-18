@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Eat : MonoBehaviour
 {
@@ -13,7 +14,17 @@ public class Eat : MonoBehaviour
     }
 
 
-    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Ontrigger(collision);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Ontrigger(collision);
+    }
+
+    protected virtual void Ontrigger(Collider2D collision)
     {
         bool isPlayer = collision.TryGetComponent(out Player player);
 

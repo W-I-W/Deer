@@ -9,7 +9,7 @@ public class GoldEat : Eat
         base.OnEnable();
     }
 
-    protected override void OnTriggerEnter2D(Collider2D collision)
+    protected override void Ontrigger(Collider2D collision)
     {
         bool isPlayer = collision.TryGetComponent(out Player player);
 
