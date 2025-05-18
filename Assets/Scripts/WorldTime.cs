@@ -44,8 +44,9 @@ public class WorldTime : MonoBehaviour
                     m_IsDay = true;
                 }
             }
-            m_Rect.anchoredPosition -= new Vector2(m_Step, 0);
-            yield return new WaitForSeconds(m_Delay);
+            m_Rect.anchoredPosition -= new Vector2(m_Step*Time.deltaTime, 0);
+            //yield return new WaitForSeconds(m_Delay);
+            yield return null;
         }
     }
 
