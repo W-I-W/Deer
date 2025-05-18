@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour, IComponentHandler<Player>, ICharacterAnimati
     public float vertical => m_Move.y;
 
     public Vector2Int lastPress { get; set; } = Vector2Int.zero;
+
     public UnityAction onIdle { get; set; }
 
     private void Start()
