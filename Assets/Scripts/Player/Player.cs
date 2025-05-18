@@ -7,14 +7,13 @@ public class Player : MonoBehaviour, ICharacterAnimation
 
     [SerializeField] private Deer m_Deer;
     [SerializeField] private GameObject m_Wolf;
-    
+
     [SerializeField] private int m_Weakness = 20;
     [SerializeField] private float _walkSpeed = 2;
     [SerializeField] private float _runSpeed = 4;
 
     private float m_Horizontal = 0;
     private float m_Vertical = 0;
-    private float m_Acceleration = 0.1f;
 
     private RebuildStates m_State;
 
@@ -41,17 +40,24 @@ public class Player : MonoBehaviour, ICharacterAnimation
     private void FixedUpdate()
     {
         if (m_Deer.getHealth <= 0) return;
+
         float time = Time.fixedDeltaTime;
 
-        //m_Acceleration = Input.GetKey(KeyCode.LeftShift) ? 1 : 2;
-        //m_Acceleration = m_Deer.getHealth > m_Weakness ? m_Acceleration : 2;
-        m_Horizontal = Input.GetAxis("Horizontal") / m_Acceleration;
-        m_Vertical = Input.GetAxis("Vertical") / m_Acceleration;
-        
-        var _speed = Input.GetKey(KeyCode.LeftShift) ?  _runSpeed: _walkSpeed;
+        float acceleration = Input.GetKey(KeyCode.LeftShift) ? 1 : 2;
+
+        var _speed = Input.GetKey(KeyCode.LeftShift) ? _runSpeed : _walkSpeed;
         if (m_Deer.getHealth < m_Weakness)
+        {
             _speed = _walkSpeed;
-        
+            acceleration = 2;
+        }
+
+        //acceleration = m_Deer.getHealth > m_Weakness ? acceleration : 2;
+        m_Horizontal = Input.GetAxis("Horizontal") / acceleration;
+        m_Vertical = Input.GetAxis("Vertical") / acceleration;
+
+
+
         m_Body.position += new Vector2(m_Horizontal, m_Vertical).normalized * (_speed * time);
         //Debug.Log("h:" + m_Horizontal + " v:" + m_Vertical + " Idle:" + isIdle);
         isIdle = Mathf.Approximately(m_Horizontal, 0) && Mathf.Approximately(m_Vertical, 0);
@@ -65,6 +71,7 @@ public class Player : MonoBehaviour, ICharacterAnimation
 
     public void RebuildInWolf()
     {
+        if (m_Deer.getHealth <= 0) return;
         m_State = RebuildStates.Wolf;
         m_Deer.gameObject.SetActive(false);
         m_Wolf.SetActive(true);
@@ -72,6 +79,7 @@ public class Player : MonoBehaviour, ICharacterAnimation
 
     public void RebuildInDeer()
     {
+        if (m_Deer.getHealth <= 0) return;
         m_State = RebuildStates.Deer;
         m_Deer.gameObject.SetActive(true);
         m_Wolf.SetActive(false);
@@ -79,6 +87,7 @@ public class Player : MonoBehaviour, ICharacterAnimation
 
     public void TakeDamage(int damage)
     {
+        if (m_Deer.getHealth <= 0) return;
         if (m_Deer.gameObject.activeSelf)
             m_Deer.TakeDamage(damage);
     }

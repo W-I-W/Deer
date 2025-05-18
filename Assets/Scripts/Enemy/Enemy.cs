@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour, IComponentHandler<Player>, ICharacterAnimati
     [SerializeField] private DamageNumber m_ViewDamagePrefab;
     [SerializeField] private TextMeshPro m_TextViewHealth;
     [SerializeField] private Transform m_Spear;
+    [SerializeField] private GameObject m_ParticalDie;
 
     [SerializeField] private int m_Health = 1;
     [SerializeField] private int m_ToTargetDistance = 2;
@@ -34,6 +35,11 @@ public class Enemy : MonoBehaviour, IComponentHandler<Player>, ICharacterAnimati
     private void Start()
     {
         m_TextViewHealth.text = m_Health.ToString("00");
+    }
+
+    private void OnDestroy()
+    {
+        Instantiate(m_ParticalDie, transform.position, Quaternion.identity);
     }
 
     public void SetComponent(Player player)

@@ -280,6 +280,7 @@ MonoBehaviour:
   m_ViewDamagePrefab: {fileID: 3521795757458407075, guid: 4ad91db999dbf7f468be9fcd9eee034a, type: 3}
   m_TextViewHealth: {fileID: 7989648077587530933}
   m_Spear: {fileID: 9100795703003298045}
+  m_ParticalDie: {fileID: 4172610010252908270, guid: c0dc1a6006413e346a97399467737464, type: 3}
   m_Health: 2
   m_ToTargetDistance: 10
   m_MoveSpeed: 1.75
@@ -295,6 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6244ae7ba453264186cc6bf87ac8ecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Health: {fileID: 0}
   m_Animator: {fileID: 8615559342194367093}
 --- !u!1 &7779458380505725803
 GameObject:
